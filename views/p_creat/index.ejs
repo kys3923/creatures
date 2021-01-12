@@ -1,0 +1,10 @@
+<!-- this will show all the dinos -->
+<h3>Prehistoric Creatures</h3>
+<ul>
+    <% pCreat.forEach(creture => { %>
+    <li>
+        <p><strong><%= creture.type %></strong><br> 
+        <img style="max-width:600px" src="<%= creture.img_url %>"></p>
+    </li>
+    <% }) %>
+</ul>

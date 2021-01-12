@@ -19,10 +19,15 @@ const path = require('path')
 app.set('view engine', 'ejs');
 app.use(layouts);
 app.use(express.static(path.join(__dirname, '/static')))
+// getting new info, body parsing middleware
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
     // res.send('home')
     res.render('home')
 })
+
+app.use('/dinos', require('./routes/dinos'));
+app.use('/p_creat', require('./routes/p_creat'));
 
 app.listen(8000, () => console.log('server is working'));
