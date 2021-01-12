@@ -10,6 +10,7 @@
 
 const express = require('express');
 const layouts = require('express-ejs-layouts');
+const methodOverride = require('method-override')
 const app = express();
 const path = require('path')
 
@@ -18,9 +19,10 @@ const path = require('path')
 
 app.set('view engine', 'ejs');
 app.use(layouts);
-app.use(express.static(path.join(__dirname, '/static')))
+app.use(express.static(path.join(__dirname, '/static')));
 // getting new info, body parsing middleware
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
     // res.send('home')
