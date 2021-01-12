@@ -2,19 +2,33 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 
+// mount
+
 // Index
 router.get('/', (req, res) => {
     let pCreat = fs.readFileSync('./prehistoric_creatures.json');
     let cretureData = JSON.parse(pCreat);
     console.log(cretureData);
-
     res.render('p_creat/index', { pCreat: cretureData })
 });
 
-// New
+// New (p_creat/new)
 router.get('/new', (req, res) => {
+    // console.log(req.params.id)
+    // console.log(cretureData[req.params.id])
     res.render('p_creat/new');
 })
+
+// New ()
+router.get('/:id', (req, res) => {
+    let pCreat = fs.readFileSync('./prehistoric_creatures.json');
+    let cretureData = JSON.parse(pCreat);   
+    // console.log(req.params.id)
+    // console.log(cretureData[req.params.id])
+    let index = req.params.id;
+    res.render('p_creat/show', { pCreat: cretureData[index]});
+})
+
 
 router.post('/', (req, res) => {
     let creatures = fs.readFileSync('./prehistoric_creatures.json');
