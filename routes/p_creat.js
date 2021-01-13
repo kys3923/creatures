@@ -26,7 +26,51 @@ router.get('/:id', (req, res) => {
     // console.log(req.params.id)
     // console.log(cretureData[req.params.id])
     let index = req.params.id;
-    res.render('p_creat/show', { pCreat: cretureData[index]});
+
+    let thisCreture = cretureData[index];
+
+    if (!thisCreture) {
+        res.redirect('./p_creat.new');
+    } else {
+        res.render('p_creat/show', { pCreat: thisCreture, cretureID: index });
+    }
+    
+});
+
+// edit
+router.get('/:id/edit', (req, res) => {
+    let index = req.params.id;
+    let pCreat = fs.readFileSync('./prehistoric_creatures.json');
+    let cretureData = JSON.parse(pCreat);
+    let thisCreture = cretureData[index];
+
+    if (!thisCreture) {
+        res.redirect('./p_creat');
+    } else {
+        res.render('p_creat/edit', { pCreat: thisCreture, cretureID: index });
+    }
+})
+
+// update
+router.put('/:id', (req, res) => {
+    let index = req.params.id;
+    let pCreat = fs.readFileSync('./prehistoric_creatures.json');
+    let cretureData = JSON.parse(pCreat);
+    cretureData[index] = req.body;
+    let cretureJSON = JSON.stringify(cretureData);
+    fs.writeFileSync(`/p_creat/${req.params.id}`);
+})
+
+// delete
+router.delete('/:id', (req, res) => {
+    let index = req.params.id;
+    let pCreat = fs.readFileSync('./prehistoric_creatures.json');
+    let cretureJS = JSON.parse(pCreat);
+
+    cretureJS.splice(index, 1);
+    fs.writeFileSync('./prehistoric_creatures.json', JSON.stringify(cretureJS));
+
+    res.redirect('/p_creat');
 })
 
 

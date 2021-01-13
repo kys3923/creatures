@@ -1,9 +1,12 @@
 <!-- this will show all the dinos -->
 <h3>Prehistoric Creatures</h3>
 <ul>
-    <% pCreat.forEach(creture => { %>
+    <% pCreat.forEach((creture, index) => { %>
     <li>
-        <p><strong><%= creture.type %></strong><br> 
+        <a href="/p_creat/<%= index %>"><strong><%= creture.type %></strong><br></a>
+        <form method="POST" action="/p_creat/<%= index %>?_method=DELETE">
+            <input type="submit" value="Delete">
+        </form>
         <img style="max-width:600px" src="<%= creture.img_url %>"></p>
     </li>
     <% }) %>

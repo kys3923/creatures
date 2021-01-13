@@ -7,6 +7,9 @@
         <!-- <p><strong><%= dino.name %></strong> is a -->
         <a href="/dinos/<%= index %>"><strong><%= dino.name %></strong> is a  
         <%= dino.type %></a>
+        <form method="POST" action="/dinos/<%= index %>?_method=DELETE">
+            <input type="submit" value="Delete">
+        </form>
     </li>
     <% }) %>
 </ul>
